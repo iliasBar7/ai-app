@@ -20,7 +20,7 @@ public class OllamaService {
     public Mono<String> askLlama(String prompt) {
         OllamaRequestDTO requestDTO = new OllamaRequestDTO(
                 "llama3",
-                        prompt,
+                         prompt,
                 false
         );
 

@@ -1,8 +1,10 @@
 package gr.aueb.AiAppGenerator.service;
+import gr.aueb.AiAppGenerator.dto.OllamaRequestDTO;
 import gr.aueb.AiAppGenerator.dto.OllamaResponseDTO;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Map;
 
@@ -15,19 +17,22 @@ public class OllamaService {
         this.webClient = webClientBuilder.baseUrl("http://localhost:11434").build();
     }
 
-    public String askLlama(String prompt) {
-        OllamaResponseDTO ollamaResponseDTO = webClient.post()
+    public Mono<String> askLlama(String prompt) {
+        OllamaRequestDTO requestDTO = new OllamaRequestDTO(
+                "llama3",
+                        prompt,
+                false
+        );
+
+        return webClient.post()
                 .uri("/api/generate")
                 .contentType(MediaType.APPLICATION_JSON)
-                .bodyValue(Map.of(
-                        "model", "llama3",
-                        "prompt", prompt,
-                        "stream", false
-                ))
+                .bodyValue(requestDTO)
                 .retrieve()
                 .bodyToMono(OllamaResponseDTO.class)
-                .block();
-
-        return ollamaResponseDTO != null ? ollamaResponseDTO.response() : "No response from model.";
+                .map(OllamaResponseDTO::response)
+                .defaultIfEmpty("No response from model.")
+                .onErrorReturn("Failed to reach Ollama.");
     }
+
 }

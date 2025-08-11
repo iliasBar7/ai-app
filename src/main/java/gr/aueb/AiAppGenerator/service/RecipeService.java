@@ -31,8 +31,10 @@ public class RecipeService {
                 """,ingredients, cuisine, dietaryRestrictions);
 
 
-
-        OllamaRequestDTO requestDTO = new OllamaRequestDTO("llama3",prompt,false);
+       OllamaRequestDTO requestDTO = new OllamaRequestDTO(
+                "llama3",
+                        prompt,
+                false);
 
         return webClient.post()
                 .uri("/api/generate")
@@ -41,7 +43,8 @@ public class RecipeService {
                 .retrieve()
                 .bodyToMono(OllamaResponseDTO.class)
                 .map(OllamaResponseDTO::response)
-                .onErrorReturn("Failed to generate recipe from Ollama.");
+                .defaultIfEmpty("No response from model")
+                .onErrorReturn("Failed to generate recipe and reach Ollama.");
 
 
     }

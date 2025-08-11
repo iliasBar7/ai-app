@@ -17,7 +17,7 @@ public class OllamaController {
     private final RecipeService recipeService;
 
     @GetMapping("/ai-ask")
-    public String askAi(@RequestParam String prompt){
+    public Mono<String> askAi(@RequestParam String prompt){
         return ollamaService.askLlama(prompt);
     }
 

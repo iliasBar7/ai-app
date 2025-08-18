@@ -1,7 +1,7 @@
 package gr.aueb.AiAppGenerator.model;
 
 
-import gr.aueb.AiAppGenerator.core.Role;
+import gr.aueb.AiAppGenerator.core.enums.Role;
 import jakarta.persistence.*;
 import lombok.*;
 import java.util.HashSet;

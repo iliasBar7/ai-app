@@ -12,7 +12,7 @@ import lombok.*;
 @Setter
 @Table(name = "recipes")
 
-public class Recipe {
+public class Recipe extends AbstractEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +27,7 @@ public class Recipe {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id",nullable = false)
     private User author;
+
 
 
 

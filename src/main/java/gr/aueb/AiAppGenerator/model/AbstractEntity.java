@@ -23,7 +23,7 @@ public abstract class AbstractEntity implements Serializable {
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
 
 }

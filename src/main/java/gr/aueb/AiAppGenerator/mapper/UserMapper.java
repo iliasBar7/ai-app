@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserMapper {
 
-    private final PasswordEncoder passwordEncoder;
+
+   private final PasswordEncoder passwordEncoder;
 
     // Map User entity -> UserReadOnlyDTO
     public UserReadOnlyDTO toReadOnlyDTO(User user) {
@@ -23,14 +24,13 @@ public class UserMapper {
         );
     }
 
-    // Backwards-compatible alias (method name was misleading)
-    @Deprecated
+
     public UserReadOnlyDTO mapToUserEntity(User user) {
         return toReadOnlyDTO(user);
     }
 
     // Map UserInsertDTO -> User entity (with encoded password)
-    public User fromInsertDTO(UserInsertDTO dto) {
+    public  User fromInsertDTO(UserInsertDTO dto) {
         return User.builder()
                 .username(dto.username())
                 .password(passwordEncoder.encode(dto.password()))

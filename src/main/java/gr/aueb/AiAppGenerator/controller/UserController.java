@@ -6,8 +6,11 @@ import gr.aueb.AiAppGenerator.dto.UserInsertDTO;
 import gr.aueb.AiAppGenerator.dto.UserReadOnlyDTO;
 import gr.aueb.AiAppGenerator.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +27,12 @@ public class UserController {
 
     }
     @PostMapping("/register")
-    public ResponseEntity<UserReadOnlyDTO> registerUser(@RequestBody UserInsertDTO userInsertDTO) {
-        return userService.
+    public ResponseEntity<UserReadOnlyDTO> registerUser(@Valid @RequestBody UserInsertDTO userInsertDTO) throws BusinessException {
+
+        UserReadOnlyDTO userReadOnlyDTO = userService.createUser(userInsertDTO);
+        return  ResponseEntity.status(HttpStatus.CREATED).body(userReadOnlyDTO);
+
+
+
     }
 }

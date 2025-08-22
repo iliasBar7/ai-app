@@ -21,6 +21,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 
 import java.util.List;
@@ -35,41 +36,41 @@ public class SecurityConfiguration {
     private final UserDetailsService userDetailsService;
     private final JwtAuthenticationFilter jwtAuthFilter;
 
-//    @Bean
-//    public SecurityFilterChain securityFilterChainOld(HttpSecurity http) throws Exception {
-//        http
-//                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .exceptionHandling((exceptions) -> exceptions
-//                        .accessDeniedHandler(myCustomAccessDeniedHandler()))
-//                .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
-//                .authorizeHttpRequests(req -> req
-//                                .requestMatchers("/api/teachers/save").permitAll()
-//                                .requestMatchers("/api/auth/authenticate").permitAll()
-//                                .requestMatchers("/api/teachers/**").hasAnyAuthority(Role.TEACHER.name(), Role.SUPER_ADMIN.name())
-//                                .requestMatchers("/api/employess/**").hasAuthority(Role.EMPLOYEE.name())
-//                                .requestMatchers("/**").permitAll()
-//                        //.authenticated()
-//                )
-//                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
-//                .authenticationProvider(authenticationProvider())
-//                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
-//
-//        return http.build();
-//    }
-//
-//
-//    @Bean
-//    CorsConfigurationSource corsConfigurationSource() {
-//        CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(List.of("https://coding-factory.apps.gov.gr", "https://test-coding-factory.apps.gov.gr" , "http://localhost:4200", "http://localhost:5173"));
-//        configuration.setAllowedMethods(List.of("*"));
-//        configuration.setAllowedHeaders(List.of("*"));
-//        configuration.setAllowCredentials(true);
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", configuration);
-//        return source;
-//    }
+    @Bean
+    public SecurityFilterChain securityFilterChainOld(HttpSecurity http) throws Exception {
+        http
+                .cors(httpSecurityCorsConfigurer -> httpSecurityCorsConfigurer.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
+                .exceptionHandling((exceptions) -> exceptions
+                        .accessDeniedHandler(myCustomAccessDeniedHandler()))
+                .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
+                .authorizeHttpRequests(req -> req
+                                .requestMatchers("/api/users/register").permitAll()
+                                .requestMatchers("/api/auth/authenticate").permitAll()
+                                .requestMatchers("/**").permitAll()
+                        //.authenticated()
+                )
+                .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
+                .authenticationProvider(authenticationProvider())
+                .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
+
+        return http.build();
+    }
+
+
+    @Bean
+    CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.setAllowedOrigins(List.of("https://coding-factory.apps.gov.gr", "https://test-coding-factory.apps.gov.gr" , "http://localhost:4200", "http://localhost:5173"));
+        configuration.setAllowedMethods(List.of("*"));
+        configuration.setAllowedHeaders(List.of("*"));
+        configuration.setAllowCredentials(true);
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
+
 
 
     public AuthenticationProvider authenticationProvider() {

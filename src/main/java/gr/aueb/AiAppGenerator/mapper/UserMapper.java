@@ -25,9 +25,7 @@ public class UserMapper {
     }
 
 
-    public UserReadOnlyDTO mapToUserEntity(User user) {
-        return toReadOnlyDTO(user);
-    }
+
 
     // Map UserInsertDTO -> User entity (with encoded password)
     public  User fromInsertDTO(UserInsertDTO dto) {

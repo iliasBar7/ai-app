@@ -52,15 +52,7 @@ public class UserService {
         }
     }
 
-        // check if a username exists in database
-        public boolean  usernameExists(String username) throws BusinessException {
-            try {
-                return userRepository.existsByUsername(username);
-            } catch (Exception e) {
-                logger.error("Error checking username existence for'{} : {}",username,e.getMessage());
-                throw new BusinessException(1004, "Failed to check username existence: " );
-            }
-        }
+
 
     }
 

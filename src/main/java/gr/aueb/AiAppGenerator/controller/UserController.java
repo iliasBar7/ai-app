@@ -26,6 +26,7 @@ public class UserController {
                     .orElseThrow(()->new BusinessException(1010,"user not found with" + username));
 
     }
+    // Endpoint User Registration
     @PostMapping("/register")
     public ResponseEntity<UserReadOnlyDTO> registerUser(@Valid @RequestBody UserInsertDTO userInsertDTO) throws BusinessException {
 

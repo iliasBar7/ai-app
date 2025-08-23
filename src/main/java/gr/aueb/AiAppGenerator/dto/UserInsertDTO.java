@@ -1,6 +1,8 @@
 package gr.aueb.AiAppGenerator.dto;
 
+import gr.aueb.AiAppGenerator.core.enums.Role;
 import jakarta.validation.constraints.*;
+import org.aspectj.weaver.ast.Not;
 
 public record UserInsertDTO(
         @NotNull(message = "username is required")

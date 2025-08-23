@@ -46,7 +46,7 @@ public class SecurityConfiguration {
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
                 .authorizeHttpRequests(req -> req
                                 .requestMatchers("/api/users/register").permitAll()
-                                .requestMatchers("/api/auth/authenticate").permitAll()
+                                .requestMatchers("/api/auth/login").permitAll()
                                 .requestMatchers("/**").permitAll()
                         //.authenticated()
                 )

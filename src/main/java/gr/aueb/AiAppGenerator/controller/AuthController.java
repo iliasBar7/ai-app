@@ -22,7 +22,7 @@ public class AuthController {
 
     private final AuthenticationService authenticationService;
 
-    @PostMapping("/authenticate")
+    @PostMapping("/login")
     public ResponseEntity<AuthenticationResponseDTO> authenticate(@RequestBody AuthenticationRequestDTO authenticationRequestDTO) {
         LOGGER.info("Received authentication request for user: {}", authenticationRequestDTO.username());
        AuthenticationResponseDTO authenticationResponseDTO = authenticationService.authenticate(authenticationRequestDTO);

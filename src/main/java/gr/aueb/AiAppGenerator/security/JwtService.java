@@ -5,19 +5,28 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.Getter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.function.Function;
 @Service
+@Getter
 public class JwtService {
 
 
-    private String secretKey = System.getenv("SECRET_KEY");
+    private final String secretKey;
 
     private long jwtExpiration = 108000000;
+
+    public JwtService(@Value("${jwt.secret}") String secretKey) {
+        this.secretKey = secretKey;
+    }
 
     //    if use refresh expiration token
 //    private long refreshExpiration = 604800000;
@@ -27,7 +36,7 @@ public class JwtService {
         claims.put("role", role);
         return Jwts
                 .builder()
-                .setIssuer("self") // todo
+                .setIssuer("self")
                 .setClaims(claims)
                 .setSubject(username)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -81,7 +90,7 @@ public class JwtService {
      * @return  a SecretKey which implements Key.
      */
     private Key getSignInKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
+        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

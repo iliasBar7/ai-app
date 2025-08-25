@@ -21,8 +21,14 @@ public class Recipe extends AbstractEntity {
     @Column(nullable = false)
     private String title;
 
+    @Column()
+    private String description;
+
+    @Column(nullable = false)
+    private String ingredients;
+
     @Lob
-    private String content;
+    private String instructions;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "author_id",nullable = false)

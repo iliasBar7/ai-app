@@ -1,6 +1,7 @@
 package gr.aueb.AiAppGenerator.security;
 
 import gr.aueb.AiAppGenerator.authentication.JwtAuthenticationFilter;
+import gr.aueb.AiAppGenerator.core.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.Configuration;
@@ -47,8 +48,10 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(req -> req
                                 .requestMatchers("/api/users/register").permitAll()
                                 .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/api/ai-ask").permitAll()
+                                .requestMatchers("/api/generate-recipe").permitAll()
                                 .requestMatchers("/**").permitAll()
-                        //.authenticated()
+                                //.authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
@@ -61,7 +64,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of("https://coding-factory.apps.gov.gr", "https://test-coding-factory.apps.gov.gr" , "http://localhost:4200", "http://localhost:5173"));
+        configuration.setAllowedOrigins(List.of( "http://localhost:5173","http://localhost:11434"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

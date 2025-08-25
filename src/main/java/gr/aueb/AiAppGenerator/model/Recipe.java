@@ -10,6 +10,7 @@ import lombok.*;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder(toBuilder = true)
 @Table(name = "recipes")
 
 public class Recipe extends AbstractEntity {
@@ -27,7 +28,7 @@ public class Recipe extends AbstractEntity {
     @Column(nullable = false)
     private String ingredients;
 
-    @Lob
+    @Lob()
     private String instructions;
 
     @ManyToOne(fetch = FetchType.LAZY)

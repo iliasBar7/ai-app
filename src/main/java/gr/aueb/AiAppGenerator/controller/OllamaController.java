@@ -1,6 +1,6 @@
 package gr.aueb.AiAppGenerator.controller;
 import gr.aueb.AiAppGenerator.service.OllamaService;
-import gr.aueb.AiAppGenerator.service.RecipeService;
+import gr.aueb.AiAppGenerator.service.RecipeOllamaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 public class OllamaController {
 
     private final OllamaService ollamaService;
-    private final RecipeService recipeService;
+    private final RecipeOllamaService recipeOllamaService;
 
     @GetMapping("/ai-ask")
     public Mono<String> askAi(@RequestParam String prompt){
@@ -28,7 +28,7 @@ public class OllamaController {
             @RequestParam String cuisine,
             @RequestParam String dietaryRestrictions
     ){
-        return recipeService.createRecipe(ingredients, cuisine, dietaryRestrictions);
+        return recipeOllamaService.createRecipe(ingredients, cuisine, dietaryRestrictions);
     }
 
 }

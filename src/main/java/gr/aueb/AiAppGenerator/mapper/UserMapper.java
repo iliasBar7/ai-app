@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class UserMapper {
 
-
-   private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // Map User entity -> UserReadOnlyDTO
     public UserReadOnlyDTO toReadOnlyDTO(User user) {

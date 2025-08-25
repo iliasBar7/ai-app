@@ -7,15 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
-import java.util.Map;
-
 @Service
-public class RecipeService {
+public class RecipeOllamaService {
 
     private final WebClient webClient;
 
 
-    public RecipeService(WebClient.Builder webClientBuilder) {
+    public RecipeOllamaService(WebClient.Builder webClientBuilder) {
         this.webClient = webClientBuilder.baseUrl("http://localhost:11434").build();
     }
 

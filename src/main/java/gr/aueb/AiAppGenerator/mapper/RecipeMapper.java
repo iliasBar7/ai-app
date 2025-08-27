@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class RecipeMapper {
 
-    public Recipe MapToEntity(RecipeRequestDTO dto) {
+    public Recipe mapToEntity(RecipeRequestDTO dto) {
         return Recipe.builder()
                 .title(dto.title())
                 .description(dto.description())
@@ -17,13 +17,13 @@ public class RecipeMapper {
                 .build();
     }
 
-    public RecipeResponseDTO MapToDto(Recipe entity) {
+    public RecipeResponseDTO mapToDto(Recipe recipe) {
         return new RecipeResponseDTO(
-                entity.getId(),
-                entity.getTitle(),
-                entity.getDescription(),
-                entity.getIngredients(),
-                entity.getInstructions()
+                recipe.getId(),
+                recipe.getTitle(),
+                recipe.getDescription(),
+                recipe.getIngredients(),
+                recipe.getInstructions()
         );
     }
 

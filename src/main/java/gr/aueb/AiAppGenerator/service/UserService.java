@@ -21,7 +21,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-    private  static final Logger logger = LoggerFactory.getLogger(UserService.class);
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
     //Create User for the provided DTO
 
@@ -53,6 +53,8 @@ public class UserService {
             throw new BusinessException(1003,"Failed to retrieve user: " + e.getMessage());
         }
     }
+
+
 
 
 

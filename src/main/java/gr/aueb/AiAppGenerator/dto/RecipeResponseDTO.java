@@ -1,5 +1,7 @@
 package gr.aueb.AiAppGenerator.dto;
 
+import gr.aueb.AiAppGenerator.model.User;
+
 //return recipe to frontend
 public record RecipeResponseDTO(
         Long id,
@@ -7,4 +9,5 @@ public record RecipeResponseDTO(
         String description,
         String ingredients,
         String instructions
+
 ) {}

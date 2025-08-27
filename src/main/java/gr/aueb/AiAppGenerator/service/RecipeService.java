@@ -7,18 +7,21 @@ import gr.aueb.AiAppGenerator.mapper.RecipeMapper;
 import gr.aueb.AiAppGenerator.model.Recipe;
 import gr.aueb.AiAppGenerator.model.User;
 import gr.aueb.AiAppGenerator.repository.RecipeRepository;
+import gr.aueb.AiAppGenerator.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class RecipeService {
 
     private final RecipeRepository repository;
+    private final UserRepository userRepository;
     private final RecipeMapper mapper;
     private static final Logger log = LoggerFactory.getLogger(RecipeService.class);
 
@@ -27,7 +30,11 @@ public class RecipeService {
     public RecipeResponseDTO create(RecipeRequestDTO dto) throws BusinessException {
         try {
             log.info("Creating recipe with title: {}", dto.title());
-            Recipe recipe = mapper.mapToEntity(dto);
+
+           User user = userRepository.findByUsername(dto.username())
+                    .orElseThrow(()->  new BusinessException(2011,"User not found with username: " + dto.username()));
+
+            Recipe recipe = mapper.mapToEntity(dto, user);
             Recipe saved = repository.save(recipe);
             log.debug("Recipe saved with id: {}", saved.getId());
             return mapper.mapToDto(saved);

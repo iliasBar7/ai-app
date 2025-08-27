@@ -32,7 +32,6 @@ public class UserService {
                 throw new BusinessException(1001,"Username already exists");
             }
             User user = userMapper.fromInsertDTO(dto);
-            user.setRole(Role.USER);
             User savedUser = userRepository.save(user);
             return userMapper.toReadOnlyDTO(savedUser);
 

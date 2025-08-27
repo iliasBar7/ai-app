@@ -1,7 +1,6 @@
 package gr.aueb.AiAppGenerator.security;
 
 import gr.aueb.AiAppGenerator.authentication.JwtAuthenticationFilter;
-import gr.aueb.AiAppGenerator.core.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.Configuration;
@@ -46,10 +45,11 @@ public class SecurityConfiguration {
                         .accessDeniedHandler(myCustomAccessDeniedHandler()))
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
                 .authorizeHttpRequests(req -> req
-                                .requestMatchers("/api/users/register").permitAll()
-                                .requestMatchers("/api/auth/login").permitAll()
-                                .requestMatchers("/api/ai-ask").permitAll()
-                                .requestMatchers("/api/generate-recipe").permitAll()
+//                                .requestMatchers("/api/users/register").permitAll()
+//                                .requestMatchers("/api/auth/login").permitAll()
+//                                .requestMatchers("/api/ai-ask").permitAll()
+//                                .requestMatchers("/api/generate-recipe").permitAll()
+//                                .requestMatchers("/api/recipes/create").permitAll()
                                 .requestMatchers("/**").permitAll()
                                 //.authenticated()
                 )

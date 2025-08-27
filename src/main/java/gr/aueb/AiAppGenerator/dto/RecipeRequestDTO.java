@@ -1,14 +1,17 @@
 package gr.aueb.AiAppGenerator.dto;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 
 //for create/update a recipe
 public record RecipeRequestDTO(
-        @NotNull(message = "Title required")
+        @NotBlank(message = "Title required")
         String title,
         String description,
-        @NotNull(message = "Ingredients required")
+        @NotBlank(message = "Ingredients required")
         String ingredients,
-        @NotNull(message = "instructions required")
-        String instructions
+        @NotBlank(message = "instructions required")
+        String instructions,
+        @NotBlank
+        String username
+
 ) {}

@@ -1,5 +1,6 @@
 package gr.aueb.AiAppGenerator.mapper;
 
+import gr.aueb.AiAppGenerator.core.enums.Role;
 import gr.aueb.AiAppGenerator.dto.UserInsertDTO;
 import gr.aueb.AiAppGenerator.dto.UserReadOnlyDTO;
 import gr.aueb.AiAppGenerator.model.User;
@@ -32,6 +33,7 @@ public class UserMapper {
                 .username(dto.username())
                 .password(passwordEncoder.encode(dto.password()))
                 .email(dto.email())
+                .role(Role.USER)
                 .build();
     }
 

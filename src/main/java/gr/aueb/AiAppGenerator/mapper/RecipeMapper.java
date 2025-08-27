@@ -3,17 +3,19 @@ package gr.aueb.AiAppGenerator.mapper;
 import gr.aueb.AiAppGenerator.dto.RecipeRequestDTO;
 import gr.aueb.AiAppGenerator.dto.RecipeResponseDTO;
 import gr.aueb.AiAppGenerator.model.Recipe;
+import gr.aueb.AiAppGenerator.model.User;
 import org.springframework.stereotype.Component;
 
 @Component
 public class RecipeMapper {
 
-    public Recipe mapToEntity(RecipeRequestDTO dto) {
+    public Recipe mapToEntity(RecipeRequestDTO dto, User user) {
         return Recipe.builder()
                 .title(dto.title())
                 .description(dto.description())
                 .ingredients(dto.ingredients())
                 .instructions(dto.instructions())
+                .author(user)
                 .build();
     }
 

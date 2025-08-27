@@ -11,6 +11,7 @@ import org.apache.coyote.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -21,8 +22,8 @@ public class RecipeController {
     private final UserRepository userRepository; // DI for findByAuthor
 
 
-    @PostMapping("/create")
-    public ResponseEntity<RecipeResponseDTO> createRecipe(@RequestBody RecipeRequestDTO requestDTO) throws BusinessException {
+    @PostMapping()
+    public ResponseEntity<RecipeResponseDTO> createRecipe(@RequestBody @Valid RecipeRequestDTO requestDTO) throws BusinessException {
         RecipeResponseDTO response = recipeService.create(requestDTO);
         return ResponseEntity.ok(response);
     }

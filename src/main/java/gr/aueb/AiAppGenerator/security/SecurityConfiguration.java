@@ -1,6 +1,7 @@
 package gr.aueb.AiAppGenerator.security;
 
 import gr.aueb.AiAppGenerator.authentication.JwtAuthenticationFilter;
+import gr.aueb.AiAppGenerator.core.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.Configuration;
@@ -45,13 +46,14 @@ public class SecurityConfiguration {
                         .accessDeniedHandler(myCustomAccessDeniedHandler()))
                 .exceptionHandling((exceptions) -> exceptions.authenticationEntryPoint(myCustomAuthenticationEntryPoint()))
                 .authorizeHttpRequests(req -> req
-//                                .requestMatchers("/api/users/register").permitAll()
-//                                .requestMatchers("/api/auth/login").permitAll()
-//                                .requestMatchers("/api/ai-ask").permitAll()
-//                                .requestMatchers("/api/generate-recipe").permitAll()
-//                                .requestMatchers("/api/recipes/create").permitAll()
+                                .requestMatchers("/api/users/register").permitAll()
+                                .requestMatchers("/api/auth/login").permitAll()
+                                .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
+                                .requestMatchers("/api/ai-ask").permitAll()
+                                .requestMatchers("/api/generate-recipe").permitAll()
+                                .requestMatchers("/api/recipes/create").authenticated()
                                 .requestMatchers("/**").permitAll()
-                                //.authenticated()
+
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(STATELESS))
                 .authenticationProvider(authenticationProvider())
@@ -91,7 +93,7 @@ public class SecurityConfiguration {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(11);
-        //return NoOpPasswordEncoder.getInstance();
+
     }
 
     @Bean

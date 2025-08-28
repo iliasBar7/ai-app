@@ -33,6 +33,6 @@ public class AuthenticationService {
         // if authentication was successfull , generate JWT token
 
         String token = jwtService.generateToken(authentication.getName(),user.getRole().name());
-        return new AuthenticationResponseDTO(token);
+        return new AuthenticationResponseDTO(token, user.getUsername());
     }
 }

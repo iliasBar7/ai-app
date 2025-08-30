@@ -7,4 +7,5 @@ public record UserReadOnlyDTO(
         Long id,
         String username,
         String email,
-        Role role) {}
+        Role role
+        ) {}

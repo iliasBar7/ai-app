@@ -90,7 +90,7 @@ public class JwtService {
      * @return  a SecretKey which implements Key.
      */
     private Key getSignInKey() {
-        byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
+        byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
 }

@@ -3,7 +3,6 @@ package gr.aueb.AiAppGenerator.controller;
 import gr.aueb.AiAppGenerator.core.exceptions.BusinessException;
 import gr.aueb.AiAppGenerator.dto.RecipeRequestDTO;
 import gr.aueb.AiAppGenerator.dto.RecipeResponseDTO;
-import gr.aueb.AiAppGenerator.repository.UserRepository;
 import gr.aueb.AiAppGenerator.service.RecipeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +14,8 @@ import java.util.List;
 @RequestMapping("/api/recipes")
 @RequiredArgsConstructor
 public class RecipeController {
+
     private final RecipeService recipeService;
-    private final UserRepository userRepository; // DI for findByAuthor
 
 
     @PostMapping()
@@ -52,11 +51,11 @@ public class RecipeController {
     }
 
     @GetMapping("/author/{authorId}")
-    public ResponseEntity<List<RecipeResponseDTO>> getByAuthor(@PathVariable Long authorId) throws BusinessException {
-        var author = userRepository.findById(authorId)
-                .orElseThrow(()-> new BusinessException(2010,"Author not found"));
+    public ResponseEntity<List<RecipeResponseDTO>> getByAuthor(@PathVariable Long authorId)
+            throws BusinessException {
 
-        return ResponseEntity.ok(recipeService.getByAuthor(author));
+        List<RecipeResponseDTO> recipes = recipeService.getRecipesByAuthorId(authorId);
+        return ResponseEntity.ok(recipes);
     }
 
 }

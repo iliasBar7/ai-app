@@ -1,6 +1,5 @@
 package gr.aueb.AiAppGenerator.service;
 
-import gr.aueb.AiAppGenerator.core.enums.Role;
 import gr.aueb.AiAppGenerator.core.exceptions.BusinessException;
 import gr.aueb.AiAppGenerator.dto.UserInsertDTO;
 import gr.aueb.AiAppGenerator.dto.UserReadOnlyDTO;
@@ -23,7 +22,7 @@ public class UserService {
     private final UserMapper userMapper;
     private static final Logger logger = LoggerFactory.getLogger(UserService.class);
 
-    //Create User for the provided DTO
+
 
     @Transactional
     public UserReadOnlyDTO createUser(UserInsertDTO dto) throws BusinessException {
@@ -31,9 +30,9 @@ public class UserService {
             if(userRepository.existsByUsername(dto.username())){
                 throw new BusinessException(1001,"Username already exists");
             }
-            User user = userMapper.fromInsertDTO(dto);
+            User user = userMapper.mapToUser(dto);
             User savedUser = userRepository.save(user);
-            return userMapper.toReadOnlyDTO(savedUser);
+            return userMapper.mapToReadOnlyDTO(savedUser);
 
         } catch (BusinessException e) {
             throw new BusinessException(1002,"Failed to create user: " + e.getMessage());
@@ -44,7 +43,7 @@ public class UserService {
     public Optional<UserReadOnlyDTO> getUserByUsername(String username) throws BusinessException {
         try{
             return userRepository.findByUsername(username)
-                    .map(userMapper::toReadOnlyDTO);
+                    .map(userMapper::mapToReadOnlyDTO);
 
 
         } catch (Exception e) {

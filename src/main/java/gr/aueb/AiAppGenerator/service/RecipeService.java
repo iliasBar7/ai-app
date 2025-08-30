@@ -111,16 +111,26 @@ public class RecipeService {
         }
     }
 
-    public List<RecipeResponseDTO> getByAuthor(User author) throws BusinessException {
-        try{
-            log.info("Fetching recipes for author: {}",author.getUsername());;
-            return repository.findByAuthor(author)
-                    .stream()
+    public List<RecipeResponseDTO> getRecipesByAuthorId(Long authorId) throws BusinessException {
+        try {
+
+            User author = userRepository.findById(authorId)
+                    .orElseThrow(() -> new BusinessException(2010, "Author not found"));
+
+            log.info("Fetching recipes for author: {}", author.getUsername());
+
+            // Get recipes by author
+            List<Recipe> recipes = repository.findByAuthor(author);
+
+            // Convert to DTOs
+            return recipes.stream()
                     .map(mapper::mapToDto)
                     .toList();
-        }catch (Exception e) {
-            log.error("Error fetching recipes for author{}",author.getId(),e);
-            throw new BusinessException(2009,"Failed to fetch recipes for author");
+
+
+        } catch (Exception e) {
+            log.error("Error fetching recipes for author {}", authorId, e);
+            throw new BusinessException(2009, "Failed to fetch recipes for author");
         }
     }
 }

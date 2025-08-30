@@ -30,13 +30,8 @@ public class UserController {
     }
     // Endpoint User Registration
     @PostMapping("/register")
-    public ResponseEntity<UserReadOnlyDTO> registerUser(@AuthenticationPrincipal User user, @RequestBody UserInsertDTO userInsertDTO) throws BusinessException {
-
-
+    public ResponseEntity<UserReadOnlyDTO> registerUser(@Valid @RequestBody UserInsertDTO userInsertDTO) throws BusinessException {
         UserReadOnlyDTO userReadOnlyDTO = userService.createUser(userInsertDTO);
-        return  ResponseEntity.status(HttpStatus.CREATED).body(userReadOnlyDTO);
-
-
-
+        return ResponseEntity.status(HttpStatus.CREATED).body(userReadOnlyDTO);
     }
 }

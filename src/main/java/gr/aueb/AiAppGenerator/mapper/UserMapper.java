@@ -15,7 +15,7 @@ public class UserMapper {
     private final PasswordEncoder passwordEncoder;
 
     // Map User entity -> UserReadOnlyDTO
-    public UserReadOnlyDTO toReadOnlyDTO(User user) {
+    public UserReadOnlyDTO mapToReadOnlyDTO(User user) {
         return new UserReadOnlyDTO(
                 user.getId(),
                 user.getUsername(),
@@ -28,7 +28,7 @@ public class UserMapper {
 
 
     // Map UserInsertDTO -> User entity (with encoded password)
-    public  User fromInsertDTO(UserInsertDTO dto) {
+    public  User mapToUser(UserInsertDTO dto) {
         return User.builder()
                 .username(dto.username())
                 .password(passwordEncoder.encode(dto.password()))

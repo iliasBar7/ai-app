@@ -1,7 +1,6 @@
 package gr.aueb.AiAppGenerator.security;
 
 import gr.aueb.AiAppGenerator.authentication.JwtAuthenticationFilter;
-import gr.aueb.AiAppGenerator.core.enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.*;
 import org.springframework.context.annotation.Configuration;
@@ -51,7 +50,7 @@ public class SecurityConfiguration {
                                 .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll()
                                 .requestMatchers("/api/ai-ask").permitAll()
                                 .requestMatchers("/api/generate-recipe").permitAll()
-                                .requestMatchers("/api/recipes/create").authenticated()
+                                .requestMatchers("/api/recipes").authenticated()
                                 .requestMatchers("/**").permitAll()
 
                 )
@@ -66,7 +65,7 @@ public class SecurityConfiguration {
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(List.of( "http://localhost:5173","http://localhost:11434"));
+        configuration.setAllowedOrigins(List.of( "http://localhost:5173","http://localhost:11434","http://localhost:3000"));
         configuration.setAllowedMethods(List.of("*"));
         configuration.setAllowedHeaders(List.of("*"));
         configuration.setAllowCredentials(true);

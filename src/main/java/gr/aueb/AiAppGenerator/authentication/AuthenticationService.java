@@ -21,6 +21,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
+
     public AuthenticationResponseDTO authenticate(AuthenticationRequestDTO dto) {
         //Create an authentication token from username and password
         Authentication authentication = authenticationManager.authenticate(
@@ -32,7 +33,7 @@ public class AuthenticationService {
 
         // if authentication was successfull , generate JWT token
 
-        String token = jwtService.generateToken(authentication.getName(),user.getRole().name());
+        String token = jwtService.generateToken(authentication.getName(), user.getRole().name());
         return new AuthenticationResponseDTO(token, user.getUsername());
     }
 }

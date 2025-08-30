@@ -1,15 +1,11 @@
 package gr.aueb.AiAppGenerator.controller;
-
-
 import gr.aueb.AiAppGenerator.core.exceptions.BusinessException;
 import gr.aueb.AiAppGenerator.dto.UserInsertDTO;
 import gr.aueb.AiAppGenerator.dto.UserReadOnlyDTO;
-import gr.aueb.AiAppGenerator.model.User;
 import gr.aueb.AiAppGenerator.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
